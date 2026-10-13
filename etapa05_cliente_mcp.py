@@ -24,7 +24,7 @@ import os
 import sys
 
 from agents import Agent, Runner
-from agents.mcp import MCPServerStdio
+from agents.mcp import MCPServerStdio, create_static_tool_filter
 from dotenv import load_dotenv
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
@@ -65,7 +65,23 @@ async def perguntar_ao_atendente(pergunta: str) -> str:
     #       devolva (await Runner.run(agente, pergunta)).final_output
     #   Compare com a Etapa 1: o agente perdeu a tool local e ganhou o server inteiro.
     #   Referência: aula5/exemplos/04_agente_mcp/agente.py
-    raise NotImplementedError("ETAPA 5.3: perguntar_ao_atendente")
+    # Privilégio mínimo (Etapa 9.1): o atendente só enxerga as tools de leitura pública. registrar_decisao (escrita)
+    # e consultar_remuneracao (restrita) ficam de fora, mesmo estando no mesmo server.
+    so_leitura = create_static_tool_filter(
+        allowed_tool_names=["consultar_servidor", "consultar_escala", "consultar_normas", "tabela_diarias"])
+    async with MCPServerStdio(params={"command": sys.executable, "args": [SERVER]}, name="rh",
+                              tool_filter=so_leitura) as servidor:
+        agente = Agent(
+            name="AtendenteRH",
+            instructions=(
+                "Você é o atendente do RH e tira dúvidas dos servidores. Responda sempre em português e de forma "
+                "breve. Use as tools do RH para buscar os dados (cadastro, escala da equipe, normas, diárias); "
+                "nunca invente saldos, datas ou afastamentos. Datas nas tools vão no formato AAAA-MM-DD. "
+                "Para dúvidas gerais (o que é algo), responda direto, sem chamar tools."
+            ),
+            mcp_servers=[servidor],
+        )
+        return (await Runner.run(agente, pergunta)).final_output
 
 
 if __name__ == "__main__":
