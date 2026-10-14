@@ -31,6 +31,7 @@ import re
 import sys
 import time
 from collections import Counter
+from datetime import date
 from enum import Enum
 
 from agents import Agent, ModelSettings, Runner
@@ -114,8 +115,14 @@ class Pedido(BaseModel):
     @field_validator("data_inicio", "data_fim")
     @classmethod
     def _data_completa(cls, valor):
-        # '2027-08-null' ou 'agosto de 2027' não são datas exatas
-        return valor if valor is None or re.fullmatch(r"\d{4}-\d{2}-\d{2}", valor) else None
+        # '2027-08-null' ou 'agosto de 2027' não são datas exatas; '2026-11-31' (conta errada do LLM) não existe
+        if valor is None or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", valor):
+            return None
+        try:
+            date.fromisoformat(valor)
+        except ValueError:
+            return None
+        return valor
 
     @model_validator(mode="after")
     def _coerente_com_o_tipo(self):
