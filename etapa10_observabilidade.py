@@ -19,11 +19,13 @@ Rodar:
 import functools
 import json
 import sys
+import threading
 import time
 
 from dados_rh import SAIDAS
 
 ARQUIVO_METRICAS = SAIDAS / "metricas.jsonl"
+_TRAVA = threading.Lock()
 
 
 def medido(nome: str, no):
@@ -43,18 +45,28 @@ def medido(nome: str, no):
             if isinstance(mudancas, dict) and campo in mudancas:
                 linha[campo] = mudancas[campo]
         ARQUIVO_METRICAS.parent.mkdir(parents=True, exist_ok=True)
-        with open(ARQUIVO_METRICAS, "a", encoding="utf-8") as arquivo:
+        # os ramos paralelos (normas, escala, financeiro) rodam em threads e terminam juntos: sem a trava, duas
+        # escritas no fim do arquivo podem se sobrepor e deixar uma linha cortada (ex.: "0}")
+        with _TRAVA, open(ARQUIVO_METRICAS, "a", encoding="utf-8") as arquivo:
             arquivo.write(json.dumps(linha, ensure_ascii=False) + "\n")
         return mudancas
 
     return embrulhado
 
 
+def _ler_linha(linha: str) -> dict:
+    """Uma linha do JSONL; linha corrompida vira {} (é ignorada) em vez de derrubar o resumo inteiro."""
+    try:
+        return json.loads(linha)
+    except json.JSONDecodeError:
+        return {}
+
+
 def resumo(thread_id: str) -> dict:
     """(PRONTO) Junta as linhas de ARQUIVO_METRICAS de uma execução. Só funciona depois que o medido() (10.2) grava."""
     if not ARQUIVO_METRICAS.exists():
         return {"erro": "saidas/metricas.jsonl ainda não existe: faça a ETAPA 10.2 e rode o grafo"}
-    linhas = [json.loads(l) for l in ARQUIVO_METRICAS.read_text(encoding="utf-8").splitlines() if l.strip()]
+    linhas = [_ler_linha(l) for l in ARQUIVO_METRICAS.read_text(encoding="utf-8").splitlines() if l.strip()]
     linhas = [l for l in linhas if l.get("thread_id") == thread_id]
     if not linhas:
         return {"erro": f"nenhuma métrica com thread_id={thread_id!r}"}
