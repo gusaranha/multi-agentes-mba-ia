@@ -1,0 +1,57 @@
+{
+  "ae788d33": {
+    "matricula": "1001",
+    "tipo": "abono",
+    "inicio": "2027-04-09",
+    "fim": "2027-04-09",
+    "decisao": "deferido",
+    "aprovador": "sistema",
+    "thread_id": "C1_abono_simples",
+    "despacho": "Despacho: \n\nConsiderando o pedido de abono da servidora Ana Ribeiro, matrícula 1001, para o período de 09/04/2027 a 09/04/2027, com 1 dia útil, e tendo em vista que não há violações às regras estabelecidas, DECIDO pelo DEFERIDO do pedido.",
+    "registrado_em": "2026-10-14T12:16:38.527699"
+  },
+  "6f1b47d7": {
+    "matricula": "1004",
+    "tipo": "ferias",
+    "inicio": "2027-07-12",
+    "fim": "2027-07-26",
+    "decisao": "indeferido",
+    "aprovador": "sistema",
+    "thread_id": "C6_conflito_de_escala",
+    "despacho": "Despacho:\n\nConsiderando o pedido de férias do servidor matrícula 1004, Diego Matos, para o período de 12/07/2027 a 26/07/2027, informo que a decisão é INDEFERIDA, em razão da violação da regra N5, que estabelece que a equipe já possui 1 servidor afastado no período solicitado. Sugiro o novo período de 20/07/2027 a 03/08/2027, que não apresenta conflitos de afastamento.",
+    "registrado_em": "2026-10-14T12:17:09.584232"
+  },
+  "7c458e62": {
+    "matricula": "1003",
+    "tipo": "ferias",
+    "inicio": "2027-04-30",
+    "fim": "2027-05-14",
+    "decisao": "indeferido",
+    "aprovador": "sistema",
+    "thread_id": "C12_inicio_proibido",
+    "despacho": "Despacho:\n\nEm relação ao pedido de férias da servidora Carla Nunes, matrícula 1003, para o período de 30/04/2027 a 14/05/2027, informo que a decisão é INDEFERIDA, uma vez que foram violadas as seguintes regras: N3: as férias não podem começar em 2027-04-30 (véspera de feriado/fim de semana). Sugiro que o novo período seja revisado para evitar essa violação.",
+    "registrado_em": "2026-10-14T12:17:54.309299"
+  },
+  "b7b6f485": {
+    "matricula": "1002",
+    "tipo": "ferias",
+    "inicio": "2027-04-12",
+    "fim": "2027-04-26",
+    "decisao": "deferido",
+    "aprovador": "1010",
+    "thread_id": "C2_ferias_com_venda",
+    "despacho": "Despacho:\n\nMatrícula: 1002; Tipo de pedido: férias; Período: 12/04/2027 a 26/04/2027, 10 dia(s) útil(eis), retorno 27/04/2027; Decisão: DEFERIDO (sujeito à aprovação da chefia imediata); Regras cumpridas: nenhuma violação identificada; Valores calculados: R$ 3.166,67.",
+    "registrado_em": "2026-10-14T12:18:04.694734"
+  },
+  "ec67dba1": {
+    "matricula": "1003",
+    "tipo": "diaria",
+    "inicio": "2027-06-08",
+    "fim": "2027-06-11",
+    "decisao": "deferido",
+    "aprovador": "1011",
+    "thread_id": "C11_diaria_exterior",
+    "despacho": "Matrícula: 1003  \nTipo de pedido: diária  \nPeríodo: 08/06/2027 a 11/06/2027  \nDecisão: DEFERIDO (sujeito à aprovação da chefia imediata)  \nRegras cumpridas: N5  \nValores calculados: R$ 5.628,30.",
+    "registrado_em": "2026-10-14T12:18:08.917979"
+  }
+}

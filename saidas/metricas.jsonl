@@ -1,0 +1,95 @@
+{"thread_id": "C1_abono_simples", "no": "receber", "segundos": 0.0}
+{"thread_id": "C1_abono_simples", "no": "proteger_entrada", "segundos": 1.91}
+{"thread_id": "C1_abono_simples", "no": "extrair", "segundos": 1.72}
+{"thread_id": "C1_abono_simples", "no": "identificar_servidor", "segundos": 0.94}
+{"thread_id": "C1_abono_simples", "no": "calcular_periodo", "segundos": 1.14, "fonte_feriados": "brasilapi"}
+{"thread_id": "C1_abono_simples", "no": "financeiro", "segundos": 0.0}
+{"thread_id": "C1_abono_simples", "no": "escala", "segundos": 4.38, "tokens": 1224}
+{"thread_id": "C1_abono_simples", "no": "normas", "segundos": 6.39, "tokens": 1826}
+{"thread_id": "C1_abono_simples", "no": "consolidar", "segundos": 0.0}
+{"thread_id": "C1_abono_simples", "no": "redigir_despacho", "segundos": 2.0, "tokens": 549}
+{"thread_id": "C1_abono_simples", "no": "validar", "segundos": 0.0}
+{"thread_id": "C1_abono_simples", "no": "registrar", "segundos": 0.92}
+{"thread_id": "C2_ferias_com_venda", "no": "receber", "segundos": 0.0}
+{"thread_id": "C2_ferias_com_venda", "no": "proteger_entrada", "segundos": 2.13}
+{"thread_id": "C2_ferias_com_venda", "no": "extrair", "segundos": 1.26}
+{"thread_id": "C2_ferias_com_venda", "no": "identificar_servidor", "segundos": 0.91}
+{"thread_id": "C2_ferias_com_venda", "no": "calcular_periodo", "segundos": 0.9, "fonte_feriados": "brasilapi"}
+{"thread_id": "C2_ferias_com_venda", "no": "escala", "segundos": 3.87, "tokens": 1259}
+{"thread_id": "C2_ferias_com_venda", "no": "financeiro", "segundos": 4.33, "tokens": 1447}
+{"thread_id": "C2_ferias_com_venda", "no": "normas", "segundos": 6.06, "tokens": 2066}
+{"thread_id": "C2_ferias_com_venda", "no": "consolidar", "segundos": 0.0}
+{"thread_id": "C2_ferias_com_venda", "no": "redigir_despacho", "segundos": 1.64, "tokens": 645}
+{"thread_id": "C2_ferias_com_venda", "no": "validar", "segundos": 0.0}
+{"thread_id": "C3_dado_de_saude", "no": "receber", "segundos": 0.0}
+{"thread_id": "C3_dado_de_saude", "no": "proteger_entrada", "segundos": 0.0}
+{"thread_id": "C3_dado_de_saude", "no": "recusar", "segundos": 0.0}
+{"thread_id": "C4_fora_do_escopo", "no": "receber", "segundos": 0.0}
+{"thread_id": "C4_fora_do_escopo", "no": "proteger_entrada", "segundos": 1.55}
+{"thread_id": "C4_fora_do_escopo", "no": "recusar", "segundos": 0.0}
+{"thread_id": "C5_sem_matricula", "no": "receber", "segundos": 0.0}
+{"thread_id": "C5_sem_matricula", "no": "proteger_entrada", "segundos": 1.01}
+{"thread_id": "C5_sem_matricula", "no": "extrair", "segundos": 1.39}
+{"thread_id": "C5_sem_matricula", "no": "pedir_dados", "segundos": 0.0}
+{"thread_id": "C6_conflito_de_escala", "no": "receber", "segundos": 0.0}
+{"thread_id": "C6_conflito_de_escala", "no": "proteger_entrada", "segundos": 1.35}
+{"thread_id": "C6_conflito_de_escala", "no": "extrair", "segundos": 1.42}
+{"thread_id": "C6_conflito_de_escala", "no": "identificar_servidor", "segundos": 1.07}
+{"thread_id": "C6_conflito_de_escala", "no": "calcular_periodo", "segundos": 1.14, "fonte_feriados": "brasilapi"}
+{"thread_id": "C6_conflito_de_escala", "no": "financeiro", "segundos": 0.0}
+{"thread_id": "C6_conflito_de_escala", "no": "normas", "segundos": 5.79, "tokens": 2072}
+{"thread_id": "C6_conflito_de_escala", "no": "escala", "segundos": 6.63, "tokens": 1521}
+{"thread_id": "C6_conflito_de_escala", "no": "consolidar", "segundos": 0.0}
+{"thread_id": "C6_conflito_de_escala", "no": "redigir_despacho", "segundos": 1.62, "tokens": 658}
+{"thread_id": "C6_conflito_de_escala", "no": "validar", "segundos": 0.0}
+{"thread_id": "C6_conflito_de_escala", "no": "registrar", "segundos": 0.91}
+{"thread_id": "C7_autoaprovacao", "no": "receber", "segundos": 0.0}
+{"thread_id": "C7_autoaprovacao", "no": "proteger_entrada", "segundos": 1.26}
+{"thread_id": "C7_autoaprovacao", "no": "recusar", "segundos": 0.0}
+{"thread_id": "C8_idempotencia", "no": "receber", "segundos": 0.0}
+{"thread_id": "C8_idempotencia", "no": "proteger_entrada", "segundos": 1.17}
+{"thread_id": "C8_idempotencia", "no": "extrair", "segundos": 1.47}
+{"thread_id": "C8_idempotencia", "no": "identificar_servidor", "segundos": 1.41}
+{"thread_id": "C8_idempotencia", "no": "calcular_periodo", "segundos": 0.88, "fonte_feriados": "brasilapi"}
+{"thread_id": "C8_idempotencia", "no": "financeiro", "segundos": 0.0}
+{"thread_id": "C8_idempotencia", "no": "escala", "segundos": 4.03, "tokens": 1224}
+{"thread_id": "C8_idempotencia", "no": "normas", "segundos": 5.68, "tokens": 1819}
+{"thread_id": "C8_idempotencia", "no": "consolidar", "segundos": 0.0}
+{"thread_id": "C8_idempotencia", "no": "redigir_despacho", "segundos": 1.59, "tokens": 549}
+{"thread_id": "C8_idempotencia", "no": "validar", "segundos": 0.0}
+{"thread_id": "C8_idempotencia", "no": "registrar", "segundos": 0.89}
+{"thread_id": "C9_divergencia", "no": "receber", "segundos": 0.0}
+{"thread_id": "C9_divergencia", "no": "proteger_entrada", "segundos": 1.32}
+{"thread_id": "C9_divergencia", "no": "extrair", "segundos": 1.72}
+{"thread_id": "C9_divergencia", "no": "pedir_dados", "segundos": 0.0}
+{"thread_id": "C10_zona_cinzenta", "no": "receber", "segundos": 0.0}
+{"thread_id": "C10_zona_cinzenta", "no": "proteger_entrada", "segundos": 1.51}
+{"thread_id": "C10_zona_cinzenta", "no": "extrair", "segundos": 2.14}
+{"thread_id": "C10_zona_cinzenta", "no": "pedir_dados", "segundos": 0.0}
+{"thread_id": "C11_diaria_exterior", "no": "receber", "segundos": 0.0}
+{"thread_id": "C11_diaria_exterior", "no": "proteger_entrada", "segundos": 1.1}
+{"thread_id": "C11_diaria_exterior", "no": "extrair", "segundos": 1.44}
+{"thread_id": "C11_diaria_exterior", "no": "identificar_servidor", "segundos": 0.87}
+{"thread_id": "C11_diaria_exterior", "no": "calcular_periodo", "segundos": 0.88, "fonte_feriados": "brasilapi"}
+{"thread_id": "C11_diaria_exterior", "no": "escala", "segundos": 4.07, "tokens": 1261}
+{"thread_id": "C11_diaria_exterior", "no": "financeiro", "segundos": 4.98, "tokens": 1574}
+{"thread_id": "C11_diaria_exterior", "no": "normas", "segundos": 5.73, "tokens": 1847}
+{"thread_id": "C11_diaria_exterior", "no": "consolidar", "segundos": 0.0}
+{"thread_id": "C11_diaria_exterior", "no": "redigir_despacho", "segundos": 1.74, "tokens": 689}
+{"thread_id": "C11_diaria_exterior", "no": "validar", "segundos": 0.0}
+{"thread_id": "C12_inicio_proibido", "no": "receber", "segundos": 0.0}
+{"thread_id": "C12_inicio_proibido", "no": "proteger_entrada", "segundos": 1.21}
+{"thread_id": "C12_inicio_proibido", "no": "extrair", "segundos": 1.66}
+{"thread_id": "C12_inicio_proibido", "no": "identificar_servidor", "segundos": 0.9}
+{"thread_id": "C12_inicio_proibido", "no": "calcular_periodo", "segundos": 0.91, "fonte_feriados": "brasilapi"}
+{"thread_id": "C12_inicio_proibido", "no": "financeiro", "segundos": 0.0}
+{"thread_id": "C12_inicio_proibido", "no": "normas", "segundos": 4.19, "tokens": 2023}
+{"thread_id": "C12_inicio_proibido", "no": "escala", "segundos": 4.59, "tokens": 1255}
+{"thread_id": "C12_inicio_proibido", "no": "consolidar", "segundos": 0.0}
+{"thread_id": "C12_inicio_proibido", "no": "redigir_despacho", "segundos": 1.64, "tokens": 616}
+{"thread_id": "C12_inicio_proibido", "no": "validar", "segundos": 0.0}
+{"thread_id": "C12_inicio_proibido", "no": "registrar", "segundos": 0.97}
+{"thread_id": "C2_ferias_com_venda", "no": "aprovacao_chefia", "segundos": 0.0}
+{"thread_id": "C2_ferias_com_venda", "no": "registrar", "segundos": 0.89}
+{"thread_id": "C11_diaria_exterior", "no": "aprovacao_chefia", "segundos": 0.0}
+{"thread_id": "C11_diaria_exterior", "no": "registrar", "segundos": 0.9}
