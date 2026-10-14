@@ -66,6 +66,7 @@ from dados_rh import SAIDAS
 from etapa02_extracao import extrair, extrair_com_votacao
 from etapa04_ferramentas import gerar_protocolo, rodar_com_limites_sync, texto_hoje
 from etapa03_guardrails import LIMIAR, MENSAGENS, encontrar_dado_sensivel, nota_escopo
+from etapa10_governanca import Governanca
 from etapa10_observabilidade import medido
 from provedor import configurar
 from etapa06_regras import precisa_chefia, resumo_periodo, violacoes_objetivas
@@ -108,6 +109,8 @@ class Estado(TypedDict, total=False):
     protocolo: str
     resultado: str                # o desfecho, para a tabela da Etapa 11
     caminho: Annotated[list[str], operator.add]   # cada nó só ACRESCENTA o próprio nome
+    tokens: Annotated[int, operator.add]          # ETAPA 10: tokens do nó (os ramos paralelos somam no mesmo passo)
+    fonte_feriados: str           # ETAPA 10: "brasilapi" ou o plano B offline
 
 
 # ------------------------------------------------------------------ nós PRONTOS
@@ -226,7 +229,8 @@ def calcular_periodo(estado: Estado) -> dict:
     periodo = resumo_periodo(pedido["data_inicio"], pedido["data_fim"])
     escala = chamar_mcp("consultar_escala", {"equipe": estado["servidor"]["equipe"],
                                              "inicio": pedido["data_inicio"], "fim": pedido["data_fim"]})
-    return {"periodo": periodo, "escala": escala, "caminho": ["calcular_periodo"]}
+    return {"periodo": periodo, "escala": escala, "fonte_feriados": periodo["fonte_feriados"],
+            "caminho": ["calcular_periodo"]}
 
 
 # ------------------------------------------------------------------ ETAPA 7.3: paralelismo
@@ -234,6 +238,11 @@ def _fatos(estado: Estado) -> str:
     """(PRONTO) O que os especialistas recebem: pedido, servidor (sem salário), período e escala."""
     return (f"PEDIDO: {estado['pedido']}\nSERVIDOR: {estado['servidor']}\n"
             f"PERÍODO: {estado['periodo']}\nESCALA DA EQUIPE: {estado['escala']}")
+
+
+def _tokens(resultado) -> int:
+    """ETAPA 10: tokens gastos numa execução do Runner (vão para a métrica do nó em saidas/metricas.jsonl)."""
+    return resultado.context_wrapper.usage.total_tokens
 
 
 def no_normas(estado: Estado) -> dict:
@@ -244,14 +253,14 @@ def no_normas(estado: Estado) -> dict:
     # sem elas, ele recalcula prazos por conta própria e aponta violações que não existem (ex.: N4 no C1)
     fatos = {"hoje": texto_hoje(), "violacoes": violacoes_objetivas(estado["pedido"], estado["servidor"],
                                                                     estado["periodo"], estado["escala"])}
-    resultado = rodar_com_limites_sync(agentes.criar_normas(), _fatos(estado), context=fatos)
-    return {"parecer_normas": resultado.final_output, "caminho": ["normas"]}
+    resultado = rodar_com_limites_sync(agentes.criar_normas(), _fatos(estado), context=fatos, hooks=Governanca(verbose=False))
+    return {"parecer_normas": resultado.final_output, "tokens": _tokens(resultado), "caminho": ["normas"]}
 
 
 def no_escala(estado: Estado) -> dict:
     # ETAPA 7.3 -- idem, agentes.criar_escala() -> {"parecer_escala": ..., "caminho": ["escala"]}
-    resultado = rodar_com_limites_sync(agentes.criar_escala(), _fatos(estado))
-    return {"parecer_escala": resultado.final_output, "caminho": ["escala"]}
+    resultado = rodar_com_limites_sync(agentes.criar_escala(), _fatos(estado), hooks=Governanca(verbose=False))
+    return {"parecer_escala": resultado.final_output, "tokens": _tokens(resultado), "caminho": ["escala"]}
 
 
 def no_financeiro(estado: Estado) -> dict:
@@ -262,8 +271,8 @@ def no_financeiro(estado: Estado) -> dict:
         return {"parecer_financeiro": "não se aplica (abono não tem valor)", "caminho": ["financeiro"]}
     if pedido["tipo"] == "ferias" and not pedido.get("dias_vendidos"):
         return {"parecer_financeiro": "não se aplica (férias sem venda de dias)", "caminho": ["financeiro"]}
-    resultado = rodar_com_limites_sync(agentes.criar_financeiro(), _fatos(estado))
-    return {"parecer_financeiro": resultado.final_output, "caminho": ["financeiro"]}
+    resultado = rodar_com_limites_sync(agentes.criar_financeiro(), _fatos(estado), hooks=Governanca(verbose=False))
+    return {"parecer_financeiro": resultado.final_output, "tokens": _tokens(resultado), "caminho": ["financeiro"]}
 
 
 def consolidar(estado: Estado) -> dict:
@@ -304,8 +313,8 @@ def redigir_despacho(estado: Estado) -> dict:
         entrada += f"FEEDBACK DA CHEFIA: {estado['feedback_chefia']}\n"
     entrada += f"DECISÃO: {estado['decisao'].upper()}" + (" (sujeito à aprovação da chefia imediata)" if chefia
                                                           else " (não depende da chefia imediata: não a mencione)")
-    despacho = rodar_com_limites_sync(agentes.criar_redator(), entrada).final_output
-    return {"despacho": despacho, "caminho": ["redigir_despacho"]}
+    resultado = rodar_com_limites_sync(agentes.criar_redator(), entrada, hooks=Governanca(verbose=False))
+    return {"despacho": resultado.final_output, "tokens": _tokens(resultado), "caminho": ["redigir_despacho"]}
 
 
 def problemas_do_despacho(despacho: str, pedido: dict) -> list[str]:
