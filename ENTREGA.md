@@ -8,16 +8,16 @@
 
 | Regra | Tema | Quem verifica (função Python / agente / humano) | Por quê | Onde foi implementada (preencha na Etapa 11) |
 |---|---|---|---|---|
-| N1 | férias | | | |
-| N2 | férias | | | |
-| N3 | férias | | | |
-| N4 | prazos | | | |
-| N5 | escala | | | |
-| N6 | abono | | | |
-| N7 | diária | | | |
-| N8 | aprovação | | | |
-| N9 | saúde | | | |
-| N10 | dados | | | |
+| N1 | férias | Função Python | Conta objetiva (dias do período ≥ 5 e ≤ saldo do cadastro): resultado exato e testável, sem depender do LLM | |
+| N2 | férias | Função Python (limite e saldo) + agente Financeiro (valor da venda) | Limite de 10 dias e saldo são comparações exatas; o Financeiro só calcula `salario_base / 30` e é o único que vê o salário (privilégio mínimo) | |
+| N3 | férias | Função Python (com feriados da BrasilAPI e plano B offline) | Data de início × fins de semana e feriados é cálculo de calendário; um LLM erraria dias da semana e feriados | |
+| N4 | prazos | Função Python | Antecedência em dias corridos/úteis a partir de hoje é aritmética de datas, determinística | |
+| N5 | escala | Função Python (dados do MCP `consultar_escala`) + agente Escala (sugere outro período) | Contar afastados × limite é objetivo; sugerir nova data em linguagem natural é tarefa do agente | |
+| N6 | abono | Função Python | Dia útil e saldo de abonos são verificações exatas no calendário e no cadastro | |
+| N7 | diária | Agente Financeiro (tools `tabela_diarias` e `cotacao_dolar`) | Precisa combinar tabela, pernoites, meia diária e câmbio e mostrar a conta; sem cotação escreve "a calcular", nunca inventa | |
+| N8 | aprovação | Função Python (`precisa_chefia`) + humano (chefia via `interrupt()`) + MCP Server (autorização) | A decisão de deferir é humana; quem pode aprovar (chefia certa, nunca o próprio servidor) é garantido no servidor, não no prompt | |
+| N9 | saúde | Guardrail de entrada (regex de CID + classificador de escopo) | Dado de saúde deve ser barrado ANTES de chegar a qualquer agente ou ser gravado | |
+| N10 | dados | Guardrail de entrada (regex de CPF/CID) + guardrail de saída no despacho + instrução do Redator | Proteção de dados não pode depender só do LLM: a checagem por regex na saída garante que o despacho não vaze CPF/CID | |
 
 ## Etapa 11: os 12 casos
 
